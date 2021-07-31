@@ -56,4 +56,3 @@ Maintained by [Yii Extension](https://github.com/yii-extension).
 ## Powered by Yii Framework
 
 [![Official website](https://img.shields.io/badge/Powered_by-Yii_Framework-green.svg?style=flat)](https://www.yiiframework.com/)
-
