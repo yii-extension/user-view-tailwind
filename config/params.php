@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Yii\Extension\User\View\ViewInjection\UserViewInjection;
-use Yiisoft\Factory\Definition\Reference;
+use Yiisoft\Definitions\Reference;
 use Yiisoft\Yii\View\CsrfViewInjection;
 
 return [
