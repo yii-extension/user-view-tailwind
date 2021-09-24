@@ -8,7 +8,6 @@ use Yii\Extension\Simple\Model\ModelInterface;
 use Yii\Extension\User\Settings\ModuleSettings;
 use Yiisoft\Html\Html;
 use Yiisoft\Html\Tag\A;
-use Yiisoft\Html\Tag\Button;
 use Yiisoft\Html\Tag\Li;
 use Yiisoft\Html\Tag\Ul;
 use Yiisoft\Router\UrlGeneratorInterface;
@@ -25,10 +24,7 @@ use Yiisoft\View\WebView;
  * @var WebView $this
  */
 
-$title = Html::encode($translator->translate('Resend confirmation message', [], 'user-view'));
-
-/** @psalm-suppress InvalidScope */
-$this->setTitle($title);
+$this->setTitle(Html::encode($translator->translate('Resend confirmation message', [], 'user-view')));
 
 $csrf = $csrf ?? '';
 $items = [];
@@ -37,7 +33,7 @@ $tab = 0;
 
 <div>
     <h1 class="font-mono font-semibold text-center text-4xl pb-8">
-        <?= $title ?>
+        <?= $this->getTitle() ?>
     </h1>
 </div>
 
@@ -49,16 +45,16 @@ $tab = 0;
         ->id('form-recovery-resend')
         ->begin() ?>
 
-        <?= $field->config($model, 'email')->input(['autofocus' => true, 'tabindex' => ++$tab]) ?>
+        <?= $field->config($model, 'email')->text(['autofocus' => true, 'tabindex' => ++$tab]) ?>
 
-        <?= Button::tag()
-            ->attributes(['tabindex' => ++$tab])
-            ->class(
-                'bg-blue-500 h-12 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:shadow-outline w-full'
-            )
-            ->content($translator->translate('Continue', [], 'user-view'))
-            ->id('resend-button')
-            ->type('submit') ?>
+        <?= $field->submitButton(
+            [
+                'class' => 'bg-blue-500 h-12 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:shadow-outline w-full',
+                'id' => 'resend-button',
+                'tabindex' => ++$tab,
+                'value' => $translator->translate('Continue', [], 'user-view'),
+            ],
+        ) ?>
     <?= Form::end(); ?>
 
     <div>

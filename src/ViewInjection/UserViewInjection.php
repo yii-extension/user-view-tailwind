@@ -7,14 +7,12 @@ namespace Yii\Extension\User\View\ViewInjection;
 use Yii\Extension\Simple\Forms\Field;
 use Yii\Extension\User\Settings\ModuleSettings;
 use Yiisoft\Router\UrlGeneratorInterface;
-use Yiisoft\Router\UrlMatcherInterface;
 use Yiisoft\Session\Flash\Flash;
 use Yiisoft\Translator\TranslatorInterface;
 use Yiisoft\User\CurrentUser;
-use Yiisoft\Yii\View\ContentParametersInjectionInterface;
-use Yiisoft\Yii\View\LayoutParametersInjectionInterface;
+use Yiisoft\Yii\View\CommonParametersInjectionInterface;
 
-final class UserViewInjection implements ContentParametersInjectionInterface, LayoutParametersInjectionInterface
+final class UserViewInjection implements CommonParametersInjectionInterface
 {
     private CurrentUser $currentUser;
     private Field $field;
@@ -22,7 +20,6 @@ final class UserViewInjection implements ContentParametersInjectionInterface, La
     private ModuleSettings $moduleSettings;
     private TranslatorInterface $translator;
     private UrlGeneratorInterface $urlGenerator;
-    private UrlMatcherInterface $urlMatcher;
 
     public function __construct(
         CurrentUser $currentUser,
@@ -30,8 +27,7 @@ final class UserViewInjection implements ContentParametersInjectionInterface, La
         Flash $flash,
         ModuleSettings $moduleSettings,
         TranslatorInterface $translator,
-        UrlGeneratorInterface $urlGenerator,
-        UrlMatcherInterface $urlMatcher
+        UrlGeneratorInterface $urlGenerator
     ) {
         $this->currentUser = $currentUser;
         $this->field = $field;
@@ -39,28 +35,21 @@ final class UserViewInjection implements ContentParametersInjectionInterface, La
         $this->moduleSettings = $moduleSettings;
         $this->translator = $translator;
         $this->urlGenerator = $urlGenerator;
-        $this->urlMatcher = $urlMatcher;
     }
 
-    public function getContentParameters(): array
+    /**
+     * @psalm-suppress UndefinedInterfaceMethod
+     */
+    public function getCommonParameters(): array
     {
         return [
             'field' => $this->field,
             'flash' => $this->flash,
+            'isGuest' => $this->currentUser->isGuest(),
             'moduleSettings' => $this->moduleSettings,
             'translator' => $this->translator,
             'urlGenerator' => $this->urlGenerator,
-            'urlMatcher' => $this->urlMatcher,
-        ];
-    }
-
-    public function getLayoutParameters(): array
-    {
-        return [
-            'currentUser' => $this->currentUser,
-            'translator' => $this->translator,
-            'urlGenerator' => $this->urlGenerator,
-            'urlMatcher' => $this->urlMatcher,
+            'userName' => $this->currentUser->getId() !== null ? $this->currentUser->getIdentity()->getUsername() : '',
         ];
     }
 }

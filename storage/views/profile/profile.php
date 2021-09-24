@@ -9,7 +9,6 @@ use Yii\Extension\User\Helper\TimeZone;
 use Yii\Extension\User\Settings\ModuleSettings;
 use Yiisoft\Arrays\ArrayHelper;
 use Yiisoft\Html\Html;
-use Yiisoft\Html\Tag\Button;
 use Yiisoft\Router\UrlGeneratorInterface;
 use Yiisoft\Translator\TranslatorInterface;
 use Yiisoft\View\WebView;
@@ -24,10 +23,7 @@ use Yiisoft\View\WebView;
  * @var WebView $this
  */
 
-$title = Html::encode($translator->translate('Profile', [], 'user-view'));
-
-/** @psalm-suppress InvalidScope */
-$this->setTitle($title);
+$this->setTitle(Html::encode($translator->translate('Profile', [], 'user-view')));
 
 $csrf = $csrf ?? '';
 $tab = 0;
@@ -36,7 +32,7 @@ $timezone = new TimeZone();
 
 <div>
     <h1 class="font-mono font-semibold text-center text-4xl pb-8">
-        <?= $title ?>
+        <?= $this->getTitle() ?>
     </h1>
 </div>
 
@@ -48,30 +44,30 @@ $timezone = new TimeZone();
         ->id('form-profile')
         ->begin() ?>
 
-        <?= $field->config($model, 'name')->input(['autofocus' => true, 'tabindex' => ++$tab]) ?>
+        <?= $field->config($model, 'name')->text(['autofocus' => true, 'tabindex' => ++$tab]) ?>
 
-        <?= $field->config($model, 'publicEmail')->input(['autofocus' => true, 'tabindex' => ++$tab]) ?>
+        <?= $field->config($model, 'publicEmail')->text(['autofocus' => true, 'tabindex' => ++$tab]) ?>
 
-        <?= $field->config($model, 'website')->input(['autofocus' => true, 'tabindex' => ++$tab]) ?>
+        <?= $field->config($model, 'website')->text(['autofocus' => true, 'tabindex' => ++$tab]) ?>
 
-        <?= $field->config($model, 'location')->input(['autofocus' => true, 'tabindex' => ++$tab]) ?>
+        <?= $field->config($model, 'location')->text(['autofocus' => true, 'tabindex' => ++$tab]) ?>
 
         <?= $field->config($model, 'timezone')
-            ->dropDownList(
+            ->select(
+                ['tabindex' => ++$tab],
                 ArrayHelper::map($timezone->getAll(), 'timezone', 'name'),
-                ['tabindex' => ++$tab]
             ) ?>
 
         <?= $field->config($model, 'bio')
             ->textarea(['class' => '', 'rows' => 2,'tabindex' => ++$tab]) ?>
 
-        <?= Button::tag()
-            ->attributes(['tabindex' => ++$tab])
-            ->class(
-                'bg-blue-500 h-12 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:shadow-outline w-full'
-            )
-            ->content($translator->translate('Save', [], 'user-view'))
-            ->id('save-profile')
-            ->type('submit') ?>
+        <?= $field->submitButton(
+            [
+                'class' => 'bg-blue-500 h-12 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:shadow-outline w-full',
+                'id' => 'save-profile',
+                'tabindex' => ++$tab,
+                'value' => $translator->translate('Save', [], 'user-view'),
+            ],
+        ) ?>
     <?= Form::end() ?>
 </div>
