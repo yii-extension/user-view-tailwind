@@ -20,7 +20,7 @@
         "yiisoft/router-fastroute": "^3.0@dev",
         "yiisoft/translator": "^1.0",
         "yiisoft/user": "^3.0@dev",
-        "yiisoft/yii-view": "^3.0"
+        "yiisoft/yii-view": "^4.0"
     },
     "require-dev": {
         "nyholm/psr7": "^1.4",
