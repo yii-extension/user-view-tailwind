@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-use Yii\Extension\Simple\Forms\Field;
-use Yii\Extension\Simple\Forms\Form;
-use Yii\Extension\Simple\Model\ModelInterface;
 use Yii\Extension\User\Settings\ModuleSettings;
+use Yiisoft\Csrf\CsrfTokenInterface;
+use Yiisoft\Form\FormModelInterface;
+use Yiisoft\Form\Widget\Field;
+use Yiisoft\Form\Widget\Form;
 use Yiisoft\Html\Html;
 use Yiisoft\Html\Tag\A;
 use Yiisoft\Html\Tag\Li;
@@ -15,9 +16,9 @@ use Yiisoft\Translator\TranslatorInterface;
 use Yiisoft\View\WebView;
 
 /**
- * @var string|null $csrf
+ * @var CsrfTokenInterface $csrf
  * @var Field $field
- * @var ModelInterface $model
+ * @var FormModelInterface $model
  * @var ModuleSettings $moduleSettings
  * @var TranslatorInterface $translator
  * @var UrlGeneratorInterface $urlGenerator
@@ -25,8 +26,6 @@ use Yiisoft\View\WebView;
  */
 
 $this->setTitle(Html::encode($translator->translate('Log in', [], 'user-view')));
-
-$csrf = $csrf ?? '';
 $items = [];
 $tab = 0;
 ?>
@@ -36,7 +35,6 @@ $tab = 0;
         <?= $this->getTitle() ?>
     </h1>
 </div>
-
 <div class="w-full max-w-xs">
     <?= Form::widget()
         ->action($urlGenerator->generate('login'))
@@ -46,11 +44,8 @@ $tab = 0;
         ->begin() ?>
 
         <?= $field->config($model, 'login')->text(['autofocus' => true, 'tabindex' => ++$tab]) ?>
-
         <?= $field->config($model, 'password')->password(['tabindex' => ++$tab]) ?>
-
         <hr class="mt-1"/>
-
         <?= $field->submitButton(
             [
                 'class' => 'bg-blue-500 h-12 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:shadow-outline w-full',
@@ -59,11 +54,10 @@ $tab = 0;
                 'value' => $translator->translate('Log in', [], 'user-view'),
             ],
         ) ?>
-    <?= Form::end() ?>
 
+    <?= Form::end() ?>
     <div>
         <hr class="mt-1"/>
-
         <?php if ($moduleSettings->isPasswordRecovery()) : ?>
             <?php $items[] = Li::tag()
                 ->class('text-blue-600 text-center')
@@ -77,7 +71,6 @@ $tab = 0;
                 ->encode(false)
             ?>
         <?php endif ?>
-
         <?php if ($moduleSettings->isRegister()) : ?>
             <?php $items[] = Li::tag()
                 ->class('text-blue-600 text-center')
@@ -91,7 +84,6 @@ $tab = 0;
                 ->encode(false)
             ?>
         <?php endif ?>
-
         <?php if ($moduleSettings->isConfirmation() === true) : ?>
             <?php $items[] = Li::tag()
                 ->class('text-blue-600 text-center')
@@ -105,9 +97,7 @@ $tab = 0;
                 ->encode(false)
             ?>
         <?php endif ?>
-
         <?= Ul::tag()->class('list-none')->items(...$items) ?>
-
         <hr class="py-3"/>
     </div>
 </div>

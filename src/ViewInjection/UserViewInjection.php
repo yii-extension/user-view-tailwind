@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Yii\Extension\User\View\ViewInjection;
 
-use Yii\Extension\Simple\Forms\Field;
 use Yii\Extension\User\Settings\ModuleSettings;
+use Yiisoft\Form\Widget\Field;
 use Yiisoft\Router\UrlGeneratorInterface;
 use Yiisoft\Session\Flash\Flash;
 use Yiisoft\Translator\TranslatorInterface;
@@ -23,18 +23,17 @@ final class UserViewInjection implements CommonParametersInjectionInterface
 
     public function __construct(
         CurrentUser $currentUser,
-        Field $field,
         Flash $flash,
         ModuleSettings $moduleSettings,
         TranslatorInterface $translator,
         UrlGeneratorInterface $urlGenerator
     ) {
         $this->currentUser = $currentUser;
-        $this->field = $field;
         $this->flash = $flash;
         $this->moduleSettings = $moduleSettings;
         $this->translator = $translator;
         $this->urlGenerator = $urlGenerator;
+        $this->field = $this->createField();
     }
 
     /**
@@ -51,5 +50,20 @@ final class UserViewInjection implements CommonParametersInjectionInterface
             'urlGenerator' => $this->urlGenerator,
             'userName' => $this->currentUser->getId() !== null ? $this->currentUser->getIdentity()->getUsername() : '',
         ];
+    }
+
+    private function createField(): Field
+    {
+        return Field::widget()
+            ->containerClass('mb-6')
+            ->errorClass('text-red-600 italic')
+            ->hintClass('font-semibold')
+            ->inputClass(
+                'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+            )
+            ->invalidClass('border-red-600')
+            ->labelClass('block text-gray-700 text-sm font-bold mb-2')
+            ->template("{label}\n{input}\n{hint}\n{error}")
+            ->validClass('border-green-600');
     }
 }

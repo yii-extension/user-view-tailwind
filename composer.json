@@ -13,14 +13,13 @@
     "prefer-stable": true,
     "require": {
         "php": "^7.4|^8.0",
-        "yii-extension/simple-forms": "^1.0",
-        "yii-extension/simple-model": "^1.0",
         "yii-extension/user-settings": "^1.0",
-        "yiisoft/router": "^3.0@dev",
+        "yiisoft/form": "^1.0@dev",
         "yiisoft/router-fastroute": "^3.0@dev",
+        "yiisoft/router": "^3.0@dev",
         "yiisoft/translator": "^1.0",
         "yiisoft/user": "^3.0@dev",
-        "yiisoft/yii-view": "^3.0"
+        "yiisoft/yii-view": "^4.0"
     },
     "require-dev": {
         "nyholm/psr7": "^1.4",
@@ -44,6 +43,9 @@
     "extra": {
         "branch-alias": {
             "dev-master": "1.0.x-dev"
+        },
+        "config-plugin-options": {
+            "source-directory": "config"
         },
         "config-plugin": {
             "params": "params.php"

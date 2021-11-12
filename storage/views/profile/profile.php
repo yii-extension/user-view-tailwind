@@ -2,21 +2,22 @@
 
 declare(strict_types=1);
 
-use Yii\Extension\Simple\Forms\Field;
-use Yii\Extension\Simple\Forms\Form;
-use Yii\Extension\Simple\Model\ModelInterface;
 use Yii\Extension\User\Helper\TimeZone;
 use Yii\Extension\User\Settings\ModuleSettings;
 use Yiisoft\Arrays\ArrayHelper;
+use Yiisoft\Csrf\CsrfTokenInterface;
+use Yiisoft\Form\FormModelInterface;
+use Yiisoft\Form\Widget\Field;
+use Yiisoft\Form\Widget\Form;
 use Yiisoft\Html\Html;
 use Yiisoft\Router\UrlGeneratorInterface;
 use Yiisoft\Translator\TranslatorInterface;
 use Yiisoft\View\WebView;
 
 /**
- * @var string|null $csrf
+ * @var CsrfTokenInterface $csrf
  * @var Field $field
- * @var ModelInterface $model
+ * @var FormModelInterface $model
  * @var ModuleSettings $moduleSettings
  * @var TranslatorInterface $translator
  * @var UrlGeneratorInterface $urlGenerator
@@ -24,8 +25,6 @@ use Yiisoft\View\WebView;
  */
 
 $this->setTitle(Html::encode($translator->translate('Profile', [], 'user-view')));
-
-$csrf = $csrf ?? '';
 $tab = 0;
 $timezone = new TimeZone();
 ?>
@@ -35,7 +34,6 @@ $timezone = new TimeZone();
         <?= $this->getTitle() ?>
     </h1>
 </div>
-
 <div class="w-full max-w-xs">
     <?= Form::widget()
         ->action($urlGenerator->generate('profile'))
@@ -45,22 +43,16 @@ $timezone = new TimeZone();
         ->begin() ?>
 
         <?= $field->config($model, 'name')->text(['autofocus' => true, 'tabindex' => ++$tab]) ?>
-
         <?= $field->config($model, 'publicEmail')->text(['autofocus' => true, 'tabindex' => ++$tab]) ?>
-
         <?= $field->config($model, 'website')->text(['autofocus' => true, 'tabindex' => ++$tab]) ?>
-
         <?= $field->config($model, 'location')->text(['autofocus' => true, 'tabindex' => ++$tab]) ?>
-
         <?= $field->config($model, 'timezone')
             ->select(
                 ['tabindex' => ++$tab],
                 ArrayHelper::map($timezone->getAll(), 'timezone', 'name'),
             ) ?>
-
         <?= $field->config($model, 'bio')
             ->textarea(['class' => '', 'rows' => 2,'tabindex' => ++$tab]) ?>
-
         <?= $field->submitButton(
             [
                 'class' => 'bg-blue-500 h-12 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:shadow-outline w-full',
@@ -69,5 +61,6 @@ $timezone = new TimeZone();
                 'value' => $translator->translate('Save', [], 'user-view'),
             ],
         ) ?>
+
     <?= Form::end() ?>
 </div>

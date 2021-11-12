@@ -2,26 +2,25 @@
 
 declare(strict_types=1);
 
-use Yii\Extension\Simple\Forms\Field;
-use Yii\Extension\Simple\Forms\Form;
-use Yii\Extension\Simple\Model\ModelInterface;
+use Yiisoft\Csrf\CsrfTokenInterface;
+use Yiisoft\Form\FormModelInterface;
+use Yiisoft\Form\Widget\Field;
+use Yiisoft\Form\Widget\Form;
 use Yiisoft\Html\Html;
 use Yiisoft\Router\UrlGeneratorInterface;
 use Yiisoft\Translator\Translator;
 use Yiisoft\View\WebView;
 
 /**
- * @var string|null $csrf
+ * @var CsrfTokenInterface $csrf
  * @var Field $field
- * @var ModelInterface $model
+ * @var FormModelInterface $model
  * @var Translator $translator
  * @var UrlGeneratorInterface $urlGenerator
  * @var WebView $this
  */
 
 $this->setTitle(Html::encode($translator->translate('Change email address', [], 'user-view')));
-
-$csrf = $csrf ?? '';
 $tab = 0;
 ?>
 
@@ -30,7 +29,6 @@ $tab = 0;
         <?= $this->getTitle() ?>
     </h1>
 </div>
-
 <div class="w-full max-w-xs">
     <?= Form::widget()
         ->action($urlGenerator->generate('email/change'))
@@ -40,7 +38,6 @@ $tab = 0;
         ->begin() ?>
 
         <?= $field->config($model, 'email')->text(['autofocus' => true, 'tabindex' => ++$tab]) ?>
-
         <?= $field->submitButton(
             [
                 'class' => 'bg-blue-500 h-12 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:shadow-outline w-full',
@@ -49,5 +46,6 @@ $tab = 0;
                 'value' => $translator->translate('Save', [], 'user-view'),
             ],
         ) ?>
+
     <?= Form::end() ?>
 </div>
