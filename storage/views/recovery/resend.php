@@ -69,7 +69,7 @@ $tab = 0;
             ?>
         <?php endif ?>
         <?php $items[] = Li::tag()
-            ->class('')
+            ->class('text-blue-600 text-center')
             ->content(
                 A::tag()
                     ->attributes(['tabindex' => ++$tab])
