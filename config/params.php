@@ -13,6 +13,31 @@ return [
         ]
     ],
 
+    'yiisoft/view' => [
+        'parameters' => [
+            'menuItemsIsGuest' => [
+                [
+                    'label' => 'Register',
+                    'url' => '/register',
+                ],
+                [
+                    'label' => 'Login',
+                    'url' => '/login',
+                ],
+            ],
+            'menuItemsIsNotGuest' => [
+                [
+                    'label' => 'Email change',
+                    'url' => '/email/change',
+                ],
+                [
+                    'label' => 'Profile',
+                    'url' => '/profile',
+                ],
+            ],
+        ],
+    ],
+
     'yiisoft/yii-view' => [
         'injections' => [
             Reference::to(CsrfViewInjection::class),
