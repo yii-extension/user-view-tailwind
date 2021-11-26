@@ -44,11 +44,10 @@ final class UserViewInjection implements CommonParametersInjectionInterface
         return [
             'field' => $this->field,
             'flash' => $this->flash,
-            'isGuest' => $this->currentUser->isGuest(),
+            'identity' => $this->currentUser->isGuest() ? null : $this->currentUser->getIdentity(),
             'moduleSettings' => $this->moduleSettings,
             'translator' => $this->translator,
             'urlGenerator' => $this->urlGenerator,
-            'userName' => $this->currentUser->getId() !== null ? $this->currentUser->getIdentity()->getUsername() : '',
         ];
     }
 
