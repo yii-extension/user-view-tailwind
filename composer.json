@@ -14,17 +14,17 @@
     "require": {
         "php": ">=8.0",
         "yii-extension/user-settings": "^1.0",
-        "yiisoft/form": "^1.0@dev",
-        "yiisoft/router-fastroute": "^3.0@dev",
-        "yiisoft/router": "^3.0@dev",
+        "yiisoft/form": "dev-enhacements-factory as 1.0",
+        "yiisoft/router-fastroute": "^1.0",
+        "yiisoft/router": "^1.0",
         "yiisoft/translator": "^1.0",
-        "yiisoft/user": "^3.0@dev",
+        "yiisoft/user": "^1.0",
         "yiisoft/yii-view": "^4.0"
     },
     "require-dev": {
         "nyholm/psr7": "^1.4",
         "vimeo/psalm": "^4.8",
-        "yiisoft/di": "^3.0@dev",
+        "yiisoft/di": "^1.0",
         "yiisoft/yii-event": "^1.0"
     },
     "autoload": {
@@ -48,10 +48,17 @@
             "source-directory": "config"
         },
         "config-plugin": {
-            "params": "params.php"
+            "params": "params.php",
+            "widgets": "widgets.php"
         }
     },
     "config": {
         "sort-packages": true
-    }
+    },
+    "repositories": [
+        {
+            "type": "github",
+            "url": "https://github.com/terabytesoftw/yii-form"
+        }
+    ]
 }
