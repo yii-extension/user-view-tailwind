@@ -23,8 +23,7 @@ use Yiisoft\View\WebView;
  * @var UrlGeneratorInterface $urlGenerator
  * @var WebView $this
  */
-$this->setTitle($translator->translate('Register', [], 'user-view'));
-$tab = 0;
+$this->setTitle($translator->translate('views.registration.register.title'));
 ?>
 
 <div class="flex flex-col h-full items-center justify-center bg-gray-100 w-screen">
@@ -40,18 +39,18 @@ $tab = 0;
             ->id('form-registration-register')
             ->begin() ?>
 
-            <?= Field::widget()->autofocus()->text($model, 'email')->tabindex(++$tab) ?>
-            <?= Field::widget()->text($model, 'username')->tabindex(++$tab) ?>
+            <?= Field::widget()->autofocus()->text($model, 'email')->tabindex(1) ?>
+            <?= Field::widget()->text($model, 'username')->tabindex(2) ?>
             <?php if ($moduleSettings->isGeneratingPassword() === false) : ?>
-                <?= Field::widget()->password($model, 'password')->tabindex(++$tab) ?>
-                <?= Field::widget()->password($model, 'passwordVerify')->tabindex(++$tab) ?>
+                <?= Field::widget()->password($model, 'password')->tabindex(3) ?>
+                <?= Field::widget()->password($model, 'passwordVerify')->tabindex(4) ?>
             <?php endif ?>
             <?= Field::widget()
                 ->id('register-button')
                 ->name('register-button')
                 ->submitButton()
-                ->tabindex(++$tab)
-                ->value($translator->translate('Register', [], 'user-view'))
+                ->tabindex(5)
+                ->value($translator->translate('views.registration.register.button.submit'))
             ?>
 
         <?= Form::end() ?>
@@ -61,8 +60,8 @@ $tab = 0;
                 ->class('text-blue-600 text-center')
                 ->content(
                     A::tag()
-                        ->attributes(['tabindex' => ++$tab])
-                        ->content($translator->translate('Already registered - Sign in!', [], 'user-view'))
+                        ->attributes(['tabindex' => 6])
+                        ->content($translator->translate('views.registration.register.login.link'))
                         ->url($urlGenerator->generate('login'))
                         ->render()
                 )

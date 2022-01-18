@@ -21,8 +21,7 @@ use Yiisoft\View\WebView;
  * @var UrlGeneratorInterface $urlGenerator
  * @var WebView $this
  */
-$this->setTitle($translator->translate('Request your password', [], 'user-view'));
-$tab = 0;
+$this->setTitle($translator->translate('views.recovery.request.title'));
 ?>
 
 <div class="flex flex-col h-full items-center justify-center bg-gray-100 w-screen">
@@ -39,13 +38,13 @@ $tab = 0;
             ->begin()
         ?>
 
-            <?= Field::widget()->autofocus()->text($model, 'email')->tabindex(++$tab) ?>
+            <?= Field::widget()->autofocus()->text($model, 'email')->tabindex(1) ?>
             <?= Field::widget()
                 ->id('request-button')
                 ->name('request-button')
                 ->submitButton()
-                ->tabindex(++$tab)
-                ->value($translator->translate('Continue', [], 'user-view'))
+                ->tabindex(2)
+                ->value($translator->translate('views.recovery.request.button.submit'))
             ?>
 
         <?= Form::end() ?>
@@ -55,8 +54,8 @@ $tab = 0;
                 ->class('text-blue-600 text-center')
                 ->content(
                     A::tag()
-                        ->attributes(['tabindex' => ++$tab])
-                        ->content($translator->translate('Already registered - Sign in!', [], 'user-view'))
+                        ->attributes(['tabindex' => 3])
+                        ->content($translator->translate('views.recovery.request.signup.link'))
                         ->url($urlGenerator->generate('login'))
                         ->render()
                 )

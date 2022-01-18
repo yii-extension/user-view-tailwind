@@ -20,8 +20,7 @@ use Yiisoft\View\WebView;
  * @var UrlGeneratorInterface $urlGenerator
  * @var WebView $this
  */
-$this->setTitle($translator->translate('Reset your password', [], 'user-view'));
-$tab = 0;
+$this->setTitle($translator->translate('views.recovery.reset.title'));
 ?>
 
 <div class="flex flex-col h-full items-center justify-center bg-gray-100 w-screen">
@@ -38,13 +37,13 @@ $tab = 0;
             ->begin()
         ?>
 
-            <?= Field::widget()->autofocus()->password($model, 'password')->tabindex(++$tab) ?>
+            <?= Field::widget()->autofocus()->password($model, 'password')->tabindex(1) ?>
             <?= Field::widget()
                 ->id('reset-button')
                 ->name('reset-button')
                 ->submitButton()
-                ->tabindex(++$tab)
-                ->value($translator->translate('Continue', [], 'user-view'))
+                ->tabindex(2)
+                ->value($translator->translate('views.recovery.reset.button.submit'))
             ?>
 
         <?= Form::end() ?>

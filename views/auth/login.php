@@ -23,9 +23,8 @@ use Yiisoft\View\WebView;
  * @var UrlGeneratorInterface $urlGenerator
  * @var WebView $this
  */
-$this->setTitle($translator->translate('Log in', [], 'user-view'));
+$this->setTitle($translator->translate('views.auth.login.title'));
 $items = [];
-$tab = 0;
 ?>
 
 <div class="flex flex-col h-full items-center justify-center bg-gray-100 w-screen">
@@ -42,14 +41,14 @@ $tab = 0;
             ->begin()
         ?>
 
-            <?= Field::widget()->autofocus()->text($model, 'login')->tabindex(++$tab) ?>
-            <?= Field::widget()->password($model, 'password')->tabindex(++$tab) ?>
+            <?= Field::widget()->autofocus()->text($model, 'login')->tabindex(1) ?>
+            <?= Field::widget()->password($model, 'password')->tabindex(2) ?>
             <?= Field::widget()
                 ->id('login-button')
                 ->name('login-button')
                 ->submitButton()
-                ->tabindex(++$tab)
-                ->value($translator->translate('Log in', [], 'user-view'))
+                ->tabindex(3)
+                ->value($translator->translate('views.auth.login.button.submit'))
             ?>
 
         <?= Form::end() ?>
@@ -60,8 +59,8 @@ $tab = 0;
                     ->class('text-blue-600 text-center')
                     ->content(
                         A::tag()
-                            ->attributes(['tabindex' => ++$tab])
-                            ->content($translator->translate('Forgot password', [], 'user-view'))
+                            ->attributes(['tabindex' => 4])
+                            ->content($translator->translate('views.auth.login.recovery.password.link'))
                             ->url($urlGenerator->generate('request'))
                             ->render()
                     )
@@ -73,8 +72,8 @@ $tab = 0;
                     ->class('text-blue-600 text-center')
                     ->content(
                         A::tag()
-                            ->attributes(['tabindex' => ++$tab])
-                            ->content($translator->translate('Don\'t have an account - Sign up!', [], 'user-view'))
+                            ->attributes(['tabindex' => 5])
+                            ->content($translator->translate('views.auth.login.register.signup.link'))
                             ->url($urlGenerator->generate('register'))
                             ->render()
                     )
@@ -86,8 +85,8 @@ $tab = 0;
                     ->class('text-blue-600 text-center')
                     ->content(
                         A::tag()
-                            ->attributes(['tabindex' => ++$tab])
-                            ->content($translator->translate('Didn\'t receive confirmation message', [], 'user-view'))
+                            ->attributes(['tabindex' => 6])
+                            ->content($translator->translate('views.auth.login.confirmation.resend.link'))
                             ->url($urlGenerator->generate('resend'))
                             ->render()
                     )

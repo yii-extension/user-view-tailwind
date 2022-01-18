@@ -13,19 +13,19 @@
     "prefer-stable": true,
     "require": {
         "php": ">=8.0",
+        "yii-extension/helpers": "^1.0",
         "yii-extension/user-settings": "^1.0",
         "yiisoft/form": "dev-enhacements-factory as 1.0",
-        "yiisoft/router-fastroute": "^1.0",
         "yiisoft/router": "^1.0",
-        "yiisoft/translator": "^1.0",
-        "yiisoft/user": "^1.0",
-        "yiisoft/yii-view": "^4.0"
+        "yiisoft/translator": "^1.0"
     },
     "require-dev": {
         "nyholm/psr7": "^1.4",
         "vimeo/psalm": "^4.8",
         "yiisoft/di": "^1.0",
-        "yiisoft/yii-event": "^1.0"
+        "yiisoft/router-fastroute": "^1.0",
+        "yiisoft/yii-event": "^1.0",
+        "yiisoft/yii-view": "^4.0"
     },
     "autoload": {
         "psr-4": {

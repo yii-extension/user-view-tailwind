@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Yii\Extension\User\Helper\TimeZone;
+use Yii\Extension\Helpers\TimeZone;
 use Yii\Extension\User\Settings\ModuleSettings;
 use Yiisoft\Arrays\ArrayHelper;
 use Yiisoft\Csrf\CsrfTokenInterface;
@@ -22,9 +22,9 @@ use Yiisoft\View\WebView;
  * @var UrlGeneratorInterface $urlGenerator
  * @var WebView $this
  */
-$this->setTitle($translator->translate('Profile', [], 'user-view'));
-$tab = 0;
-$timezone = new TimeZone();
+$this->setTitle($translator->translate('views.profile.profile.title'));
+/** @psalm-var iterable<mixed, array<array-key, mixed>|object> */
+$timezone = (new TimeZone())->getAll();
 ?>
 
 <div class="flex flex-col h-full items-center justify-center bg-gray-100 w-screen">
@@ -41,25 +41,25 @@ $timezone = new TimeZone();
             ->begin()
         ?>
 
-            <?= Field::widget()->autofocus()->text($model, 'name')->tabindex(++$tab) ?>
-            <?= Field::widget()->text($model, 'publicEmail')->tabindex(++$tab) ?>
-            <?= Field::widget()->text($model, 'website')->tabindex(++$tab) ?>
-            <?= Field::widget()->text($model, 'location')->tabindex(++$tab) ?>
+            <?= Field::widget()->autofocus()->text($model, 'name')->tabindex(1) ?>
+            <?= Field::widget()->text($model, 'publicEmail')->tabindex(2) ?>
+            <?= Field::widget()->text($model, 'website')->tabindex(3) ?>
+            <?= Field::widget()->text($model, 'location')->tabindex(4) ?>
             <?= Field::widget()
                 ->select(
                     $model,
                     'timezone',
-                    ['items()' => [ArrayHelper::map($timezone->getAll(), 'timezone', 'name')]],
+                    ['items()' => [ArrayHelper::map($timezone, 'timezone', 'name')]],
                 )
-                ->tabindex(++$tab)
+                ->tabindex(5)
             ?>
-            <?= Field::widget()->textarea($model, 'bio', ['rows()' => [2]])->tabindex(++$tab) ?>
+            <?= Field::widget()->textarea($model, 'bio', ['rows()' => [2]])->tabindex(6) ?>
             <?= Field::widget()
                 ->id('save-profile')
                 ->name('save-profile')
                 ->submitButton()
-                ->tabindex(++$tab)
-                ->value($translator->translate('Save', [], 'user-view'))
+                ->tabindex(7)
+                ->value($translator->translate('views.profile.profile.button.submit'))
             ?>
 
         <?= Form::end() ?>

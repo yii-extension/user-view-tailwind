@@ -18,8 +18,7 @@ use Yiisoft\View\WebView;
  * @var UrlGeneratorInterface $urlGenerator
  * @var WebView $this
  */
-$this->setTitle($translator->translate('Change email address', [], 'user-view'));
-$tab = 0;
+$this->setTitle($translator->translate('views.email.change.title'));
 ?>
 
 <div class="flex flex-col h-full items-center justify-center bg-gray-100 w-screen">
@@ -36,13 +35,13 @@ $tab = 0;
             ->begin()
         ?>
 
-            <?= Field::widget()->autofocus()->text($model, 'email')->tabindex(++$tab) ?>
+            <?= Field::widget()->autofocus()->text($model, 'email')->tabindex(1) ?>
             <?= Field::widget()
                 ->id('save-email-change')
                 ->name('save-email-change')
                 ->submitButton()
-                ->tabindex(++$tab)
-                ->value($translator->translate('Save', [], 'user-view'))
+                ->tabindex(2)
+                ->value($translator->translate('views.email.change.button.submit'))
             ?>
 
         <?= Form::end() ?>

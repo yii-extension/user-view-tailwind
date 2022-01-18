@@ -23,9 +23,8 @@ use Yiisoft\View\WebView;
  * @var UrlGeneratorInterface $urlGenerator
  * @var WebView $this
  */
-$this->setTitle($translator->translate('Resend confirmation message', [], 'user-view'));
+$this->setTitle($translator->translate('views.recovery.resend.title'));
 $items = [];
-$tab = 0;
 ?>
 
 <div class="flex flex-col h-full items-center justify-center bg-gray-100 w-screen">
@@ -42,13 +41,13 @@ $tab = 0;
             ->begin()
         ?>
 
-            <?= Field::widget()->autofocus()->text($model, 'email')->tabindex(++$tab) ?>
+            <?= Field::widget()->autofocus()->text($model, 'email')->tabindex(1) ?>
             <?= Field::widget()
                 ->id('resend-button')
                 ->name('resend-button')
                 ->submitButton()
-                ->tabindex(++$tab)
-                ->value($translator->translate('Continue', [], 'user-view'))
+                ->tabindex(2)
+                ->value($translator->translate('views.recovery.resend.button.submit'))
             ?>
 
         <?= Form::end(); ?>
@@ -59,8 +58,8 @@ $tab = 0;
                     ->class('text-blue-600 text-center')
                     ->content(
                         A::tag()
-                            ->attributes(['tabindex' => ++$tab])
-                            ->content($translator->translate('Don\'t have an account - Sign up!', [], 'user-view'))
+                            ->attributes(['tabindex' => 3])
+                            ->content($translator->translate('views.recovery.resend.signup.link'))
                             ->url($urlGenerator->generate('register'))
                             ->render()
                     )
@@ -71,8 +70,8 @@ $tab = 0;
                 ->class('text-blue-600 text-center')
                 ->content(
                     A::tag()
-                        ->attributes(['tabindex' => ++$tab])
-                        ->content($translator->translate('Already registered - Sign in!', [], 'user-view'))
+                        ->attributes(['tabindex' => 4])
+                        ->content($translator->translate('views.recovery.resend.login.link'))
                         ->url($urlGenerator->generate('login'))
                         ->render()
                 )

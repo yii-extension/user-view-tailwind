@@ -2,10 +2,6 @@
 
 declare(strict_types=1);
 
-use Yii\Extension\User\View\ViewInjection\CommonViewInjection;
-use Yiisoft\Definitions\Reference;
-use Yiisoft\Yii\View\CsrfViewInjection;
-
 $novalidate = getenv('YII_ENV') === 'tests' ? ['novalidate' => true] : [];
 
 return [
@@ -69,13 +65,6 @@ return [
                     'urlAttributes' => ['class' => 'flex flex-col my-auto items-center mr-5'],
                 ],
             ],
-        ],
-    ],
-
-    'yiisoft/yii-view' => [
-        'injections' => [
-            Reference::to(CommonViewInjection::class),
-            Reference::to(CsrfViewInjection::class),
         ],
     ],
 ];
