@@ -15,7 +15,7 @@
         "php": ">=8.0",
         "yii-extension/helpers": "^1.0",
         "yii-extension/user-settings": "^1.0",
-        "yiisoft/form": "dev-enhacements-factory as 1.0",
+        "yiisoft/form": "^1.0@dev",
         "yiisoft/router": "^1.0",
         "yiisoft/translator": "^1.0"
     },
@@ -54,11 +54,5 @@
     },
     "config": {
         "sort-packages": true
-    },
-    "repositories": [
-        {
-            "type": "github",
-            "url": "https://github.com/terabytesoftw/yii-form"
-        }
-    ]
+    }
 }
